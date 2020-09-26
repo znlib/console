@@ -15,7 +15,7 @@ class ChoiceQuestion extends \Symfony\Component\Console\Question\ChoiceQuestion
                 unset($choices['a']);
                 $value = implode(',', array_keys($choices));
             }
-            if(mb_strpos($value, '-') !== false) {
+            if (mb_strpos($value, '-') !== false) {
                 preg_match('#(\d+)\-(\d+)#iu', $value, $matches);
                 $start = $matches[1];
                 $end = $matches[2];
