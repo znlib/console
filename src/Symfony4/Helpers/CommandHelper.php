@@ -20,12 +20,14 @@ class CommandHelper
     public static function registerFromNamespace(string $namespace, ContainerInterface $container)
     {
         $path = ComposerHelper::getPsr4Path($namespace);
+
         $files = FileHelper::scanDir($path);
 
         $commands = array_map(function ($item) use ($namespace) {
             $item = str_replace('.php', '', $item);
             return $namespace . '\\' . $item;
         }, $files);
+
 
         foreach ($commands as $commandClassName) {
             $reflictionClass = new \ReflectionClass($commandClassName);
