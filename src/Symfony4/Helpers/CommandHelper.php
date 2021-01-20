@@ -10,15 +10,20 @@ use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 class CommandHelper
 {
 
-    public static function registerFromNamespaceList(array $namespaceList, ContainerInterface $container)
+    public static function registerFromNamespaceList(array $namespaceList, ContainerInterface $container, Application $application = null)
     {
         foreach ($namespaceList as $namespace) {
-            self::registerFromNamespace($namespace, $container);
+            self::registerFromNamespace($namespace, $container, $application);
         }
     }
 
-    public static function registerFromNamespace(string $namespace, ContainerInterface $container)
+    public static function registerFromNamespace(string $namespace, ContainerInterface $container, Application $application = null)
     {
+        if($application == null) {
+            /** @var Application $application */
+            $application = $container->get(Application::class);
+        }
+
         $path = ComposerHelper::getPsr4Path($namespace);
 
         $files = FileHelper::scanDir($path);
@@ -35,8 +40,6 @@ class CommandHelper
             if (!$isAbstract) {
                 try {
                     $commandInstance = $container->get($commandClassName);
-                    /** @var Application $application */
-                    $application = $container->get(Application::class);
                     $application->add($commandInstance);
                 } catch (\Illuminate\Contracts\Container\BindingResolutionException $e) {
                 }
