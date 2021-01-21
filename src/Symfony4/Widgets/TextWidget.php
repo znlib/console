@@ -22,7 +22,7 @@ class TextWidget extends BaseWidget
 
     public function confirm(string $message)
     {
-        $question = new ConfirmationQuestion($message . ' (y|n) [n]: ', false);
+        $question = new ConfirmationQuestion($message . ' (y|N): ', false);
         $helper = new QuestionHelper;
         $answer = $helper->ask($input, $output, $question);
         return $answer;
