@@ -69,7 +69,12 @@ class ConsoleApplicationConfigurator
         }
     }
 
-    public function registerConsoleCommand(string $namespace, Application $application)
+    public function registerConsoleCommandNamespace(string $namespace)
+    {
+        $this->consoleCommandList[] = $namespace;
+    }
+    
+    private function registerConsoleCommand(string $namespace, Application $application)
     {
         $commands = $this->scanCommandsByNameSpace($namespace);
         foreach ($commands as $commandClassName) {
