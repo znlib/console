@@ -26,7 +26,7 @@ class ConsoleApplicationConfigurator
         $this->container = $container;
         $this->containerConfigLoader = new ContainerConfigLoader();
     }
-
+    
     public function loadConfig(Application $application)
     {
         DotEnv::init(__DIR__ . '/../../../../../..');
