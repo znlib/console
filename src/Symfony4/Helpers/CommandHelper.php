@@ -3,6 +3,7 @@
 namespace ZnLib\Console\Symfony4\Helpers;
 
 use Psr\Container\ContainerInterface;
+use ReflectionException;
 use Symfony\Component\Console\Application;
 use ZnCore\Base\Helpers\ComposerHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
@@ -27,15 +28,19 @@ class CommandHelper
         $path = ComposerHelper::getPsr4Path($namespace);
 
         $files = FileHelper::scanDir($path);
+        $files = array_filter($files, function ($value) {
+            return preg_match('/\.php$/i', $value);
+        });
 
         $commands = array_map(function ($item) use ($namespace) {
-            $item = str_replace('.php', '', $item);
-            return $namespace . '\\' . $item;
-        }, $files);
 
+            $cleanItem = str_replace('.php', '', $item);
+            return $namespace . '\\' . $cleanItem;
+        }, $files);
 
         foreach ($commands as $commandClassName) {
             $reflictionClass = new \ReflectionClass($commandClassName);
+
             $isAbstract = $reflictionClass->isAbstract();
             if (!$isAbstract) {
                 try {
