@@ -27,9 +27,10 @@ class ConsoleApplicationConfigurator
         $this->containerConfigLoader = new ContainerConfigLoader();
     }
     
-    public function loadConfig(Application $application)
+    public function loadConfig(Application $application, string $rootPath = null)
     {
-        DotEnv::init(__DIR__ . '/../../../../../..');
+        $rootPath = $rootPath ?? __DIR__ . '/../../../../../..';
+        DotEnv::init($rootPath);
         EnvHelper::setErrorVisibleFromEnv();
         $kernel = new Kernel('console');
         $kernel->setContainer($this->container);
