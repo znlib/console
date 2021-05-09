@@ -26,7 +26,7 @@ class ConsoleApplicationConfigurator
         $this->container = $container;
         $this->containerConfigLoader = new ContainerConfigLoader();
     }
-    
+
     public function loadConfig(Application $application, string $rootPath = null)
     {
         $rootPath = $rootPath ?? __DIR__ . '/../../../../../..';
@@ -74,7 +74,7 @@ class ConsoleApplicationConfigurator
     {
         $this->consoleCommandList[] = $namespace;
     }
-    
+
     private function registerConsoleCommand(string $namespace, Application $application)
     {
         $commands = $this->scanCommandsByNameSpace($namespace);
