@@ -6,12 +6,15 @@ use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use Symfony\Component\Console\Application;
 use ZnCore\Base\Helpers\ComposerHelper;
+use ZnCore\Base\Helpers\DeprecateHelper;
 use ZnCore\Base\Helpers\EnvHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 use ZnCore\Base\Libs\App\Base\BaseBundle;
 use ZnCore\Base\Libs\App\Kernel;
 use ZnCore\Base\Libs\App\Loaders\ContainerConfigLoader;
 use ZnCore\Base\Libs\DotEnv\DotEnv;
+
+DeprecateHelper::softThrow();
 
 class ConsoleApplicationConfigurator
 {
