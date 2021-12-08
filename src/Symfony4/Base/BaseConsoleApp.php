@@ -72,7 +72,7 @@ abstract class BaseConsoleApp extends BaseApp
         $containerConfigurator->bind(Application::class, Application::class);
     }
 
-    public function createConsole(array $consoleCommands)
+    protected function createConsole(array $consoleCommands)
     {
         $container = $this->getContainer();
 
