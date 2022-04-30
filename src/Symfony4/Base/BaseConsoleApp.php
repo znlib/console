@@ -44,7 +44,7 @@ abstract class BaseConsoleApp extends BaseApp
 
     public function import(): array
     {
-        return ['i18next', 'container', 'console', 'migration', 'symfonyRpc', 'telegramRoutes'];
+        return ['i18next', 'container', 'rbac', 'console', 'migration', 'symfonyRpc', 'telegramRoutes'];
     }
 
     public function init(): void
