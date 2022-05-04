@@ -8,6 +8,7 @@ use Symfony\Component\Console\Application;
 use ZnCore\Base\Helpers\ComposerHelper;
 use ZnCore\Base\Helpers\DeprecateHelper;
 use ZnCore\Base\Helpers\EnvHelper;
+use ZnCore\Base\Helpers\FindFileHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 use ZnCore\Base\Libs\App\Base\BaseBundle;
 use ZnCore\Base\Libs\App\Kernel;
@@ -102,7 +103,7 @@ class ConsoleApplicationConfigurator
     private function scanCommandsByNameSpace(string $namespace): array
     {
         $path = ComposerHelper::getPsr4Path($namespace);
-        $files = FileHelper::scanDir($path);
+        $files = FindFileHelper::scanDir($path);
         $commands = array_map(function ($commandClassFile) use ($namespace) {
             $commandClassFile = str_replace('.php', '', $commandClassFile);
             return $namespace . '\\' . $commandClassFile;

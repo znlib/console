@@ -6,6 +6,7 @@ use Psr\Container\ContainerInterface;
 use ReflectionException;
 use Symfony\Component\Console\Application;
 use ZnCore\Base\Helpers\ComposerHelper;
+use ZnCore\Base\Helpers\FindFileHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 
 class CommandHelper
@@ -27,7 +28,7 @@ class CommandHelper
 
         $path = ComposerHelper::getPsr4Path($namespace);
 
-        $files = FileHelper::scanDir($path);
+        $files = FindFileHelper::scanDir($path);
         $files = array_filter($files, function ($value) {
             return preg_match('/\.php$/i', $value);
         });
