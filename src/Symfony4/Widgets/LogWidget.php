@@ -6,7 +6,7 @@ class LogWidget extends BaseWidget
 {
 
     private $pretty = false;
-    private $titleLength = 30;
+    private $lineLength = 30;
 
     public function isPretty(): bool
     {
@@ -16,6 +16,16 @@ class LogWidget extends BaseWidget
     public function setPretty(bool $pretty): void
     {
         $this->pretty = $pretty;
+    }
+
+    public function getLineLength(): int
+    {
+        return $this->lineLength;
+    }
+
+    public function setLineLength(int $lineLength): void
+    {
+        $this->lineLength = $lineLength;
     }
 
     public function start(string $message)
@@ -37,7 +47,7 @@ class LogWidget extends BaseWidget
     protected function generatePadding(int $messageLength): string
     {
         if ($this->isPretty()) {
-            $rest = $this->titleLength - $messageLength;
+            $rest = $this->lineLength - $messageLength;
         } else {
             $rest = 3;
         }
