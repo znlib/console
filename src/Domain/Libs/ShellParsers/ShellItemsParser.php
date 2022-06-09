@@ -1,6 +1,6 @@
 <?php
 
-namespace ZnLib\Console\Symfony4\Shell;
+namespace ZnLib\Console\Domain\Libs\ShellParsers;
 
 class ShellItemsParser
 {

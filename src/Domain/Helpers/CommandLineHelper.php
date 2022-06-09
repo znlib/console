@@ -1,28 +1,16 @@
 <?php
 
-namespace ZnLib\Console\Symfony4\Helpers;
-
-use ZnCore\Base\Libs\Shell\CommandForm;
+namespace ZnLib\Console\Domain\Helpers;
 
 class CommandLineHelper
 {
 
     private static $optionGlue = '=';
 
-    public static function getCommandString(CommandForm $commandForm): string
-    {
-        $args = $commandForm->getArguments();
-        if ($commandForm->getCommand()) {
-            array_unshift($args, $commandForm->getCommand());
-//            $args = ArrayHelper::merge([$commandForm->getCommand()], $args);
-        }
-        return self::argsToString($args, $commandForm->getLang());
-    }
-
     public static function argsToString($command, string $langCode = null): string
     {
         $langOption = self::generateLang($langCode);
-        if(is_array($command)) {
+        if (is_array($command)) {
             $commandName = array_shift($command);
             $arguments = self::generateCommand($command);
             $command = "{$commandName} {$arguments}";

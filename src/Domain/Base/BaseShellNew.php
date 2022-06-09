@@ -1,11 +1,11 @@
 <?php
 
-namespace ZnLib\Console\Symfony4\Shell;
+namespace ZnLib\Console\Domain\Base;
 
 use Symfony\Component\Process\Process;
-use ZnLib\Console\Symfony4\Helpers\CommandLineHelper;
+use ZnLib\Console\Domain\Helpers\CommandLineHelper;
 
-abstract class BaseShell
+abstract class BaseShellNew
 {
 
     protected $lang = 'en_GB';

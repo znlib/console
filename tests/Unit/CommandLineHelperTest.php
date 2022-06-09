@@ -2,7 +2,7 @@
 
 namespace ZnLib\Console\Tests\Unit;
 
-use ZnLib\Console\Symfony4\Helpers\CommandLineHelper;
+use ZnLib\Console\Domain\Helpers\CommandLineHelper;
 use ZnTool\Test\Base\BaseTest;
 
 final class CommandLineHelperTest extends BaseTest {
@@ -84,5 +84,4 @@ final class CommandLineHelperTest extends BaseTest {
 
         $this->assertSame("php 'zn' 'queue:run' channel='email' '--wrapped'", $commandString);
     }
-
 }

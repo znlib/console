@@ -3,8 +3,8 @@
 namespace ZnLib\Console\Tests\Unit;
 
 use Symfony\Component\Process\Process;
-use ZnLib\Console\Symfony4\Helpers\CommandLineHelper;
-use ZnLib\Console\Symfony4\Shell\FileSystemShell;
+use ZnLib\Console\Domain\Helpers\CommandLineHelper;
+use ZnLib\Console\Domain\Shell\FileSystemShell;
 use ZnTool\Test\Base\BaseTest;
 
 final class CommandProcessTest extends BaseTest

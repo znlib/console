@@ -1,8 +1,11 @@
 <?php
 
-namespace ZnLib\Console\Symfony4\Shell;
+namespace ZnLib\Console\Domain\Shell;
 
-class FileSystemShell extends BaseShell
+use ZnLib\Console\Domain\Base\BaseShellNew;
+use ZnLib\Console\Domain\Libs\ShellParsers\ShellItemsParser;
+
+class FileSystemShell extends BaseShellNew
 {
 
     public function directoryFiles(string $path): array
