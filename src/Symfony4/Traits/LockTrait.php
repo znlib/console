@@ -21,49 +21,21 @@ trait LockTrait
 
     abstract protected function runProcess(InputInterface $input, OutputInterface $output): void;
 
-    public function setDefaultLockerName(?string $defaultLockerName): void
+    protected function setDefaultLockerName(?string $defaultLockerName): void
     {
         $this->defaultLockerName = $defaultLockerName;
     }
 
-    protected function tick(string $name = null): void
-    {
-        $name = $this->forgeLockerName($name);
-        $lock = $this->getLokerByName($name);
-        $lock->refresh();
-    }
-
-    private function forgeLockerName(?string $name = null): string
-    {
-        return $name ?? $this->defaultLockerName;
-    }
-
-    protected function runProcessWithLock(InputInterface $input, OutputInterface $output, string $name): void
-    {
-        $this->setDefaultLockerName($name);
-//        $name = $this->forgeLockerName($name);
-        try {
-            $this->lock($name);
-            $this->runProcess($input, $output);
-        } catch (LockAcquiringException $e) {
-            $output->writeln('<fg=yellow>' . $e->getMessage() . '</>');
-            $output->writeln('');
-        } finally {
-            $this->unlock($name);
-        }
-    }
-
-    public function setLockFactory(LockFactory $lockFactory): void
+    protected function setLockFactory(LockFactory $lockFactory): void
     {
         $this->lockFactory = $lockFactory;
     }
 
-    private function getLokerByName(string $name): LockInterface
+    protected function refreshLock(string $name = null): void
     {
-        if (!isset($this->lockers[$name])) {
-            $this->lockers[$name] = $this->lockFactory->createLock($name, 30);
-        }
-        return $this->lockers[$name];
+        $name = $this->forgeLockerName($name);
+        $lock = $this->getLokerByName($name);
+        $lock->refresh();
     }
 
     protected function lock(string $name = null): void
@@ -86,5 +58,33 @@ trait LockTrait
         $name = $this->forgeLockerName($name);
         $lock = $this->getLokerByName($name);
         $lock->release();
+    }
+
+    protected function runProcessWithLock(InputInterface $input, OutputInterface $output, string $name): void
+    {
+        $this->setDefaultLockerName($name);
+//        $name = $this->forgeLockerName($name);
+        try {
+            $this->lock($name);
+            $this->runProcess($input, $output);
+        } catch (LockAcquiringException $e) {
+            $output->writeln('<fg=yellow>' . $e->getMessage() . '</>');
+            $output->writeln('');
+        } finally {
+            $this->unlock($name);
+        }
+    }
+
+    private function forgeLockerName(?string $name = null): string
+    {
+        return $name ?? $this->defaultLockerName;
+    }
+
+    private function getLokerByName(string $name): LockInterface
+    {
+        if (!isset($this->lockers[$name])) {
+            $this->lockers[$name] = $this->lockFactory->createLock($name, 30);
+        }
+        return $this->lockers[$name];
     }
 }
