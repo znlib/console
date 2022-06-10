@@ -21,7 +21,7 @@ trait LockTrait
 
 //    abstract public function getInput(): InputInterface;
 
-    abstract public function getOutput(): OutputInterface;
+//    abstract public function getOutput(): OutputInterface;
 
     abstract protected function runProcess(): void;
 
