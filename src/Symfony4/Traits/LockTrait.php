@@ -19,7 +19,11 @@ trait LockTrait
     /** @var LockFactory */
     private $lockFactory;
 
-    abstract protected function runProcess(InputInterface $input, OutputInterface $output): void;
+//    abstract public function getInput(): InputInterface;
+
+    abstract public function getOutput(): OutputInterface;
+
+    abstract protected function runProcess(): void;
 
     protected function setDefaultLockerName(?string $defaultLockerName): void
     {
@@ -60,16 +64,17 @@ trait LockTrait
         $lock->release();
     }
 
-    protected function runProcessWithLock(InputInterface $input, OutputInterface $output, string $name): void
+    protected function runProcessWithLock(string $name): void
     {
+//        $output = $this->getOutput();
         $this->setDefaultLockerName($name);
 //        $name = $this->forgeLockerName($name);
         try {
             $this->lock($name);
-            $this->runProcess($input, $output);
-        } catch (LockAcquiringException $e) {
+            $this->runProcess();
+        /*} catch (LockAcquiringException $e) {
             $output->writeln('<fg=yellow>' . $e->getMessage() . '</>');
-            $output->writeln('');
+            $output->writeln('');*/
         } finally {
             $this->unlock($name);
         }

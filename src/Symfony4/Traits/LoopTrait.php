@@ -11,29 +11,33 @@ trait LoopTrait
 
     private $loopInterval = 0;
 
-    abstract protected function runLoopItem(InputInterface $input, OutputInterface $output): void;
+//    abstract public function getInput(): InputInterface;
+
+//    abstract public function getOutput(): OutputInterface;
+
+    abstract protected function runLoopItem(): void;
 
     public function setLoopInterval(float $loopInterval): void
     {
         $this->loopInterval = $loopInterval;
     }
 
-    protected function runProcess(InputInterface $input, OutputInterface $output): void
+    protected function runProcess(): void
     {
-        $this->runLoop($input, $output);
+        $this->runLoop();
     }
 
-    protected function getLoopItemCallback(InputInterface $input, OutputInterface $output): callable
+    protected function getLoopItemCallback(): callable
     {
-        $callback = function () use ($input, $output) {
-            $this->runLoopItem($input, $output);
+        $callback = function () {
+            $this->runLoopItem();
         };
         return $callback;
     }
 
-    protected function runLoop(InputInterface $input, OutputInterface $output)
+    protected function runLoop()
     {
-        $callback = $this->getLoopItemCallback($input, $output);
+        $callback = $this->getLoopItemCallback();
         $loop = Loop::get();
         $loop->addPeriodicTimer($this->loopInterval, $callback);
         $loop->run();
