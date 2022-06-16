@@ -16,15 +16,19 @@ class ZnShell
         return $process;
     }
 
-    public function createProcess(string $command): Process
+    public function createProcess(string $command, string $mode = 'main'): Process
     {
         $path = FilePathHelper::rootPath() . '/vendor/zncore/base/bin';
         /*$commandString = CommandLineHelper::argsToString([
             'php',
             'zn',
         ]);*/
-        $commandString = "php ";
-        $process = Process::fromShellCommandline($commandString . ' ' . $command, $path);
+        $commandString = "php " . ' ' . $command;
+        if ($mode == 'test') {
+            $commandString .= ' --env=test';
+        }
+
+        $process = Process::fromShellCommandline($commandString, $path);
         return $process;
     }
 }

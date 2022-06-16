@@ -8,7 +8,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use ZnCore\Base\Libs\App\Interfaces\ConfigManagerInterface;
 use ZnCore\Base\Libs\Container\Interfaces\ContainerConfiguratorInterface;
+use ZnCore\Base\Libs\Event\Interfaces\EventDispatcherConfiguratorInterface;
 use ZnLib\Console\Symfony4\Helpers\CommandHelper;
+use ZnLib\Rpc\Domain\Subscribers\ApplicationAuthenticationSubscriber;
 use ZnSandbox\Sandbox\App\Base\BaseApp;
 use ZnSandbox\Sandbox\App\Libs\ZnCore;
 use ZnSandbox\Sandbox\App\Subscribers\ConsoleDetectTestEnvSubscriber;
@@ -59,6 +61,11 @@ abstract class BaseConsoleApp extends BaseApp
         $containerConfigurator->bind(Application::class, Application::class);
     }
 
+    protected function configDispatcher(EventDispatcherConfiguratorInterface $configurator): void
+    {
+
+    }
+
     protected function createConsole(array $consoleCommands)
     {
         $container = $this->getContainer();
@@ -77,10 +84,5 @@ abstract class BaseConsoleApp extends BaseApp
         if (!empty($consoleCommands)) {
             CommandHelper::registerFromNamespaceList($consoleCommands, $container, $application);
         }
-    }
-
-    protected function configDispatcher(EventDispatcherInterface $dispatcher): void
-    {
-
     }
 }
