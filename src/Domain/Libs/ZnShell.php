@@ -3,27 +3,46 @@
 namespace ZnLib\Console\Domain\Libs;
 
 use Symfony\Component\Process\Process;
+use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Libs\FileSystem\Helpers\FilePathHelper;
 use ZnLib\Console\Domain\Helpers\CommandLineHelper;
 
 class ZnShell
 {
 
-    public function runProcessFromCommandString(string $command): Process
+    public function runProcess($command): Process
     {
         $process = $this->createProcess($command);
         $process->run();
         return $process;
     }
 
-    public function createProcess(string $command, string $mode = 'main'): Process
+    /**
+     * @param $command
+     * @param string|array $mode
+     * @return Process
+     */
+    public function createProcess($command, string $mode = 'main'): Process
     {
         $path = FilePathHelper::rootPath() . '/vendor/zncore/base/bin';
+
+        if(is_array($command)) {
+            $commonCommand = [
+                'php',
+                'zn',
+            ];
+            $commonCommand = ArrayHelper::merge($commonCommand, $command);
+            $commandString = CommandLineHelper::argsToString($commonCommand);
+        } elseif (is_string()) {
+            $commandString = "php zn $command";
+        }
+
+
         /*$commandString = CommandLineHelper::argsToString([
             'php',
             'zn',
-        ]);*/
-        $commandString = "php " . ' ' . $command;
+        ]);
+        $commandString = "php " . ' ' . $command;*/
         if ($mode == 'test') {
             $commandString .= ' --env=test';
         }
