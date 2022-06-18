@@ -11,9 +11,9 @@ use ZnCore\Base\Libs\Container\Interfaces\ContainerConfiguratorInterface;
 use ZnCore\Base\Libs\Event\Interfaces\EventDispatcherConfiguratorInterface;
 use ZnLib\Console\Symfony4\Helpers\CommandHelper;
 use ZnLib\Rpc\Domain\Subscribers\ApplicationAuthenticationSubscriber;
-use ZnSandbox\Sandbox\App\Base\BaseApp;
+use ZnCore\Base\Libs\App\Base\BaseApp;
 use ZnSandbox\Sandbox\App\Libs\ZnCore;
-use ZnSandbox\Sandbox\App\Subscribers\ConsoleDetectTestEnvSubscriber;
+use ZnLib\Console\Domain\Subscribers\ConsoleDetectTestEnvSubscriber;
 
 abstract class BaseConsoleApp extends BaseApp
 {
