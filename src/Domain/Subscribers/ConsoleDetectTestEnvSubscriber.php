@@ -19,7 +19,7 @@ class ConsoleDetectTestEnvSubscriber implements EventSubscriberInterface
     public function onBeforeInitEnv(Event $event)
     {
         //$envDetector = new \ZnCore\Base\Libs\App\Libs\EnvDetector\WebEnvDetector();
-$envDetector = new \ZnCore\Base\Libs\App\Libs\EnvDetector\ConsoleEnvDetector();
+$envDetector = new \ZnLib\Console\Domain\Libs\EnvDetector\ConsoleEnvDetector();
 //        $envDetector = new \ZnCore\Base\Libs\App\Libs\EnvDetector\EnvDetector();
         $isTest = $envDetector->isTest();
 //        global $_GET, $_SERVER;
