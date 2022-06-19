@@ -9,6 +9,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use ZnCore\Base\Libs\App\Interfaces\ConfigManagerInterface;
 use ZnCore\Base\Libs\Container\Interfaces\ContainerConfiguratorInterface;
 use ZnCore\Base\Libs\Event\Interfaces\EventDispatcherConfiguratorInterface;
+use ZnLib\Console\Domain\Libs\BundleLoaders\ConsoleLoader;
 use ZnLib\Console\Symfony4\Helpers\CommandHelper;
 use ZnLib\Rpc\Domain\Subscribers\ApplicationAuthenticationSubscriber;
 use ZnCore\Base\Libs\App\Base\BaseApp;
@@ -47,6 +48,13 @@ abstract class BaseConsoleApp extends BaseApp
     public function import(): array
     {
         return ['i18next', 'container', 'rbac', 'console', 'migration', 'symfonyRpc', 'telegramRoutes'];
+    }
+
+    protected function bundleLoaders(): array
+    {
+        $loaders = parent::bundleLoaders();
+        $loaders['console'] = ConsoleLoader::class;
+        return $loaders;
     }
 
     public function init(): void
