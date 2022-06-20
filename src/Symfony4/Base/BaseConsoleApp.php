@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use ZnCore\Base\Libs\ConfigManager\Interfaces\ConfigManagerInterface;
 use ZnCore\Base\Libs\Container\Interfaces\ContainerConfiguratorInterface;
-use ZnCore\Base\Libs\Event\Interfaces\EventDispatcherConfiguratorInterface;
+use ZnCore\Base\Libs\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
 use ZnLib\Console\Domain\Libs\BundleLoaders\ConsoleLoader;
 use ZnLib\Console\Symfony4\Helpers\CommandHelper;
 use ZnLib\Rpc\Domain\Subscribers\ApplicationAuthenticationSubscriber;
