@@ -5,7 +5,9 @@ namespace ZnLib\Console\Symfony4\Helpers;
 use Psr\Container\ContainerInterface;
 use ReflectionException;
 use Symfony\Component\Console\Application;
+use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Libs\Composer\Helpers\ComposerHelper;
+use ZnCore\Base\Libs\FileSystem\Helpers\FilePathHelper;
 use ZnCore\Base\Libs\FileSystem\Helpers\FindFileHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 
@@ -26,7 +28,11 @@ class CommandHelper
             $application = $container->get(Application::class);
         }
 
-        $path = ComposerHelper::getPsr4Path($namespace);
+        if(is_dir($namespace)) {
+            $path = $namespace;
+        } else {
+            $path = ComposerHelper::getPsr4Path($namespace);
+        }
 
         $files = FindFileHelper::scanDir($path);
         $files = array_filter($files, function ($value) {
@@ -34,16 +40,23 @@ class CommandHelper
         });
 
         $commands = array_map(function ($item) use ($namespace) {
-
             $cleanItem = str_replace('.php', '', $item);
             return $namespace . '\\' . $cleanItem;
         }, $files);
 
         foreach ($commands as $commandClassName) {
-            $reflictionClass = new \ReflectionClass($commandClassName);
 
-            $isAbstract = $reflictionClass->isAbstract();
-            if (!$isAbstract) {
+            if(is_dir($namespace)) {
+                $classes = get_declared_classes();
+                $file = realpath(FilePathHelper::up($namespace)) . '/' . basename($commandClassName) . '.php';
+                $file = FileHelper::normalizePath($file);
+                include $file;
+                $loadedClasses = array_diff(get_declared_classes(), $classes);
+                $commandClassName = ArrayHelper::first($loadedClasses);
+            }
+
+            $reflictionClass = new \ReflectionClass($commandClassName);
+            if (!$reflictionClass->isAbstract()) {
                 try {
                     $commandInstance = $container->get($commandClassName);
                     $application->add($commandInstance);
