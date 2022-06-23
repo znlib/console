@@ -3,8 +3,8 @@
 namespace ZnLib\Console\Domain\Libs;
 
 use Symfony\Component\Process\Process;
-use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\Libs\FileSystem\Helpers\FilePathHelper;
+use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Base\FileSystem\Helpers\FilePathHelper;
 use ZnLib\Console\Domain\Helpers\CommandLineHelper;
 
 class ZnShell
