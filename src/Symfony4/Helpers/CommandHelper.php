@@ -5,11 +5,11 @@ namespace ZnLib\Console\Symfony4\Helpers;
 use Psr\Container\ContainerInterface;
 use ReflectionException;
 use Symfony\Component\Console\Application;
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
 use ZnCore\Base\Libs\Composer\Helpers\ComposerHelper;
 use ZnCore\Base\Libs\FileSystem\Helpers\FilePathHelper;
 use ZnCore\Base\Libs\FileSystem\Helpers\FindFileHelper;
-use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
+use ZnCore\Base\Libs\FileSystem\Helpers\FileHelper;
 
 class CommandHelper
 {

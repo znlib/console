@@ -2,8 +2,8 @@
 
 namespace ZnLib\Console\Domain\Base;
 
-use ZnCore\Base\Enums\OsFamilyEnum;
-use ZnCore\Base\Helpers\OsHelper;
+use ZnCore\Base\Libs\Env\Enums\OsFamilyEnum;
+use ZnCore\Base\Libs\Env\Helpers\OsHelper;
 
 abstract class BaseShell
 {
