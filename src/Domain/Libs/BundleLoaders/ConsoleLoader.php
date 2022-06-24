@@ -2,7 +2,7 @@
 
 namespace ZnLib\Console\Domain\Libs\BundleLoaders;
 
-use ZnCore\Base\App\Loaders\BundleLoaders\BaseLoader;
+use ZnCore\Base\Bundle\Base\BaseLoader;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
 use ZnCore\Base\ConfigManager\Interfaces\ConfigManagerInterface;
 
