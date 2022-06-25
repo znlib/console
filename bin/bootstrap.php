@@ -1,17 +1,14 @@
 <?php
 
-use Illuminate\Container\Container;
-use Symfony\Component\Console\Application;
+use Psr\Container\ContainerInterface;
 use ZnCore\Base\App\Interfaces\AppInterface;
-use ZnCore\Base\App\Libs\ZnCore;
 use ZnCore\Base\Container\Interfaces\ContainerConfiguratorInterface;
-use ZnCore\Base\DotEnv\Domain\Libs\DotEnv;
 use ZnCore\Base\DotEnv\Domain\Libs\DotEnvLoader;
 use ZnCore\Base\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
 use ZnCore\Base\FileSystem\Helpers\FilePathHelper;
 use ZnLib\Console\Domain\Libs\ConsoleApp;
 
-return function (\Psr\Container\ContainerInterface $container) {
+return function (ContainerInterface $container) {
 
     /** @var ContainerConfiguratorInterface $containerConfigurator */
     $containerConfigurator = $container->get(ContainerConfiguratorInterface::class);
