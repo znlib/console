@@ -12,6 +12,9 @@
   "require": {
     "symfony/console": "4.*|5.*"
   },
+  "bin": [
+    "bin/zn"
+  ],
   "autoload": {
     "psr-4": {
       "ZnLib\\Console\\": "src",
