@@ -66,7 +66,7 @@ abstract class BaseConsoleApp extends BaseApp
 
     protected function configContainer(ContainerConfiguratorInterface $containerConfigurator): void
     {
-        $containerConfigurator->bind(Application::class, Application::class);
+        $containerConfigurator->singleton(Application::class, Application::class);
     }
 
     protected function configDispatcher(EventDispatcherConfiguratorInterface $configurator): void

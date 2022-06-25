@@ -5,11 +5,8 @@ use Symfony\Component\Console\Application;
 use ZnCore\Base\App\Interfaces\AppInterface;
 use ZnCore\Base\App\Libs\ZnCore;
 use ZnCore\Base\Container\Interfaces\ContainerConfiguratorInterface;
-use ZnCore\Base\DotEnv\Domain\Libs\DotEnv;
-use ZnCore\Base\DotEnv\Domain\Libs\DotEnvLoader;
 use ZnCore\Base\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
-use ZnCore\Base\FileSystem\Helpers\FilePathHelper;
-use ZnLib\Console\Domain\Libs\ConsoleApp;
+use ZnLib\Init\Helpers\InitHelper;
 
 define('MICRO_TIME', microtime(true));
 
@@ -25,39 +22,19 @@ $containerConfigurator = $container->get(ContainerConfiguratorInterface::class);
 /** @var EventDispatcherConfiguratorInterface $eventDispatcherConfigurator */
 $eventDispatcherConfigurator = $container->get(EventDispatcherConfiguratorInterface::class);
 
-if ($argv[1] == 'init:run') {
-
-    $containerConfigurator->singleton(AppInterface::class, \ZnLib\Console\Domain\Libs\NullConsoleApp::class);
-    /** @var AppInterface $appFactory */
-    $appFactory = $container->get(AppInterface::class);
-    $appFactory->addBundles([
-        \ZnLib\Init\Bundle::class,
-    ]);
-    $appFactory->init();
-//    dd($container->get(\ZnCore\Base\ConfigManager\Interfaces\ConfigManagerInterface::class));
+//$isInit = preg_match('/^init:/', $argv[1]);
+$isInit = class_exists(InitHelper::class) && InitHelper::isInitCommand($argv[1]);
+if ($isInit) {
+    $bootstrap = require __DIR__ . '/../../init/bin/bootstrap.php';
 } else {
-    //$mainEnv = DotEnv::loadFromFile(DotEnv::ROOT_PATH . '/.env');
-    $loader = new DotEnvLoader();
-    $mainEnv = $loader->loadFromFile(FilePathHelper::rootPath() . '/.env');
-    $consoleAppClass = $mainEnv['CONSOLE_APP_CLASS'] ?? ConsoleApp::class;
-    $containerConfigurator->singleton(AppInterface::class, $consoleAppClass);
-
-    /** @var AppInterface $appFactory */
-    $appFactory = $container->get(AppInterface::class);
-
-    $appFactory->addBundles([
-        \ZnTool\Package\Bundle::class,
-        \ZnDatabase\Base\Bundle::class,
-        \ZnDatabase\Tool\Bundle::class,
-        \ZnDatabase\Fixture\Bundle::class,
-        \ZnDatabase\Migration\Bundle::class,
-        \ZnTool\Generator\Bundle::class,
-        \ZnTool\Stress\Bundle::class,
-        \ZnBundle\Queue\Bundle::class,
-        \ZnCore\Base\DotEnv\Bundle::class,
-    ]);
-    $appFactory->init();
+    $bootstrap = require __DIR__ . '/bootstrap.php';
 }
+
+call_user_func($bootstrap, $container);
+
+/** @var AppInterface $appFactory */
+$appFactory = $container->get(AppInterface::class);
+$appFactory->init();
 
 /** @var Application $application */
 $application = $container->get(Application::class);
