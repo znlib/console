@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Container\Container;
+use ZnCore\Base\Container\Libs\Container;
 use Symfony\Component\Console\Application;
 use ZnCore\Base\App\Interfaces\AppInterface;
 use ZnCore\Base\App\Libs\ZnCore;
