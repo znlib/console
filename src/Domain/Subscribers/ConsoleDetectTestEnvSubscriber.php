@@ -5,6 +5,7 @@ namespace ZnLib\Console\Domain\Subscribers;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 use ZnCore\Base\App\Enums\AppEventEnum;
+use ZnLib\Console\Domain\Libs\EnvDetector\ConsoleEnvDetector;
 
 class ConsoleDetectTestEnvSubscriber implements EventSubscriberInterface
 {
@@ -18,25 +19,11 @@ class ConsoleDetectTestEnvSubscriber implements EventSubscriberInterface
 
     public function onBeforeInitEnv(Event $event)
     {
-        //$envDetector = new \ZnCore\Base\App\Libs\EnvDetector\WebEnvDetector();
-$envDetector = new \ZnLib\Console\Domain\Libs\EnvDetector\ConsoleEnvDetector();
-//        $envDetector = new \ZnCore\Base\App\Libs\EnvDetector\EnvDetector();
+        $envDetector = new ConsoleEnvDetector();
         $isTest = $envDetector->isTest();
-//        global $_GET, $_SERVER;
-//        $isTest = (isset($_SERVER['HTTP_ENV_NAME']) && $_SERVER['HTTP_ENV_NAME'] == 'test') || (isset($_GET['env']) && $_GET['env'] == 'test');
         if ($isTest) {
             $_ENV['APP_ENV'] = 'test';
         }
         $_ENV['APP_MODE'] = $isTest ? 'test' : 'main';
-
-
-
-
-
-        /*global $argv;
-        $isConsoleTest = isset($argv) && in_array('--env=test', $argv);
-        if ($isConsoleTest) {
-            $_ENV['APP_ENV'] = 'test';
-        }*/
     }
 }

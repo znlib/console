@@ -2,7 +2,7 @@
 
 namespace ZnLib\Console\Domain\Libs;
 
-use ZnLib\Console\Domain\Libs\BundleLoaders\ConsoleLoader;
+use ZnCore\Base\DotEnv\Domain\Libs\DotEnv;
 use ZnLib\Console\Symfony4\Base\BaseConsoleApp;
 
 class ConsoleApp extends BaseConsoleApp
@@ -12,5 +12,14 @@ class ConsoleApp extends BaseConsoleApp
     {
         $this->loadBundlesFromEnvPath();
         parent::initBundles();
+    }
+
+    protected function loadBundlesFromEnvPath(): void
+    {
+        $bundles = [];
+        if (DotEnv::get('BUNDLES_CONFIG_FILE')) {
+            $bundles = include __DIR__ . '/../../../../../../' . DotEnv::get('BUNDLES_CONFIG_FILE');
+        }
+        $this->addBundles($bundles);
     }
 }
