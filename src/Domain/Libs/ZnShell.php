@@ -3,7 +3,7 @@
 namespace ZnLib\Console\Domain\Libs;
 
 use Symfony\Component\Process\Process;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnCore\FileSystem\Helpers\FilePathHelper;
 use ZnLib\Console\Domain\Helpers\CommandLineHelper;
 

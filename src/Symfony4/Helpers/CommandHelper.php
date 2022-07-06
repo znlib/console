@@ -5,7 +5,7 @@ namespace ZnLib\Console\Symfony4\Helpers;
 use Psr\Container\ContainerInterface;
 use ReflectionException;
 use Symfony\Component\Console\Application;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnCore\Base\Composer\Helpers\ComposerHelper;
 use ZnCore\FileSystem\Helpers\FilePathHelper;
 use ZnCore\FileSystem\Helpers\FindFileHelper;

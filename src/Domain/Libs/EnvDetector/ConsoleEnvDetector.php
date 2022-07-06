@@ -2,7 +2,7 @@
 
 namespace ZnLib\Console\Domain\Libs\EnvDetector;
 
-use ZnCore\Base\Env\Interfaces\EnvDetectorInterface;
+use ZnCore\Env\Interfaces\EnvDetectorInterface;
 
 class ConsoleEnvDetector implements EnvDetectorInterface
 {

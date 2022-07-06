@@ -2,8 +2,8 @@
 
 namespace ZnLib\Console\Domain\Libs\BundleLoaders;
 
-use ZnCore\Base\Bundle\Base\BaseLoader;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Bundle\Base\BaseLoader;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnCore\Base\ConfigManager\Interfaces\ConfigManagerInterface;
 
 class ConsoleLoader extends BaseLoader
