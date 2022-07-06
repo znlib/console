@@ -6,7 +6,7 @@ use Psr\Container\ContainerInterface;
 use ReflectionException;
 use Symfony\Component\Console\Application;
 use ZnCore\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\Composer\Helpers\ComposerHelper;
+use ZnCore\Code\Helpers\ComposerHelper;
 use ZnCore\FileSystem\Helpers\FilePathHelper;
 use ZnCore\FileSystem\Helpers\FindFileHelper;
 use ZnCore\FileSystem\Helpers\FileHelper;

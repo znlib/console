@@ -6,7 +6,7 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use ZnCore\Base\ConfigManager\Interfaces\ConfigManagerInterface;
+use ZnCore\ConfigManager\Interfaces\ConfigManagerInterface;
 use ZnCore\Container\Interfaces\ContainerConfiguratorInterface;
 use ZnCore\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
 use ZnLib\Console\Domain\Libs\BundleLoaders\ConsoleLoader;

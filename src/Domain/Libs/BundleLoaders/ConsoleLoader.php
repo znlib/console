@@ -4,7 +4,7 @@ namespace ZnLib\Console\Domain\Libs\BundleLoaders;
 
 use ZnCore\Bundle\Base\BaseLoader;
 use ZnCore\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\ConfigManager\Interfaces\ConfigManagerInterface;
+use ZnCore\ConfigManager\Interfaces\ConfigManagerInterface;
 
 class ConsoleLoader extends BaseLoader
 {
