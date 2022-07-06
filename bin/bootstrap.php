@@ -1,11 +1,11 @@
 <?php
 
 use Psr\Container\ContainerInterface;
-use ZnCore\Base\App\Interfaces\AppInterface;
-use ZnCore\Base\Container\Interfaces\ContainerConfiguratorInterface;
-use ZnCore\Base\DotEnv\Domain\Libs\DotEnvLoader;
-use ZnCore\Base\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
-use ZnCore\Base\FileSystem\Helpers\FilePathHelper;
+use ZnCore\App\Interfaces\AppInterface;
+use ZnCore\Container\Interfaces\ContainerConfiguratorInterface;
+use ZnCore\DotEnv\Domain\Libs\DotEnvLoader;
+use ZnCore\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
+use ZnCore\FileSystem\Helpers\FilePathHelper;
 use ZnLib\Console\Domain\Libs\ConsoleApp;
 
 return function (ContainerInterface $container) {
@@ -35,6 +35,6 @@ return function (ContainerInterface $container) {
         \ZnTool\Generator\Bundle::class,
         \ZnTool\Stress\Bundle::class,
         \ZnBundle\Queue\Bundle::class,
-        \ZnCore\Base\DotEnv\Bundle::class,
+        \ZnCore\DotEnv\Bundle::class,
     ]);
 };

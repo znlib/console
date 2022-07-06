@@ -1,11 +1,11 @@
 <?php
 
-use ZnCore\Base\Container\Libs\Container;
+use ZnCore\Container\Libs\Container;
 use Symfony\Component\Console\Application;
-use ZnCore\Base\App\Interfaces\AppInterface;
-use ZnCore\Base\App\Libs\ZnCore;
-use ZnCore\Base\Container\Interfaces\ContainerConfiguratorInterface;
-use ZnCore\Base\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
+use ZnCore\App\Interfaces\AppInterface;
+use ZnCore\App\Libs\ZnCore;
+use ZnCore\Container\Interfaces\ContainerConfiguratorInterface;
+use ZnCore\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
 use ZnLib\Init\Helpers\InitHelper;
 
 define('MICRO_TIME', microtime(true));

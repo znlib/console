@@ -4,7 +4,7 @@ namespace ZnLib\Console\Domain\Libs;
 
 use Symfony\Component\Process\Process;
 use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\FileSystem\Helpers\FilePathHelper;
+use ZnCore\FileSystem\Helpers\FilePathHelper;
 use ZnLib\Console\Domain\Helpers\CommandLineHelper;
 
 class ZnShell

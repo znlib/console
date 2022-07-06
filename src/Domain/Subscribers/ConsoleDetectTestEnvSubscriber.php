@@ -4,7 +4,7 @@ namespace ZnLib\Console\Domain\Subscribers;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\EventDispatcher\Event;
-use ZnCore\Base\App\Enums\AppEventEnum;
+use ZnCore\App\Enums\AppEventEnum;
 use ZnLib\Console\Domain\Libs\EnvDetector\ConsoleEnvDetector;
 
 class ConsoleDetectTestEnvSubscriber implements EventSubscriberInterface

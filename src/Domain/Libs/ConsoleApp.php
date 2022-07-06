@@ -2,7 +2,7 @@
 
 namespace ZnLib\Console\Domain\Libs;
 
-use ZnCore\Base\DotEnv\Domain\Libs\DotEnv;
+use ZnCore\DotEnv\Domain\Libs\DotEnv;
 use ZnLib\Console\Symfony4\Base\BaseConsoleApp;
 
 class ConsoleApp extends BaseConsoleApp
