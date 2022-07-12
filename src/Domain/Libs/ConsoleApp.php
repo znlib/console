@@ -18,7 +18,7 @@ class ConsoleApp extends BaseConsoleApp
     {
         $bundles = [];
         if (DotEnv::get('BUNDLES_CONFIG_FILE')) {
-            $bundles = include __DIR__ . '/../../../../../../' . DotEnv::get('BUNDLES_CONFIG_FILE');
+            $bundles = include DotEnv::get('BUNDLES_CONFIG_FILE');
         }
         $this->addBundles($bundles);
     }
