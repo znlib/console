@@ -4,6 +4,7 @@ namespace ZnLib\Console\Domain\Base;
 
 use ZnCore\Env\Enums\OsFamilyEnum;
 use ZnCore\Env\Helpers\OsHelper;
+use ZnLib\Console\Domain\Exceptions\ShellException;
 
 abstract class BaseShell
 {
