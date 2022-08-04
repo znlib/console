@@ -6,15 +6,14 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use ZnCore\App\Base\BaseApp;
+use ZnCore\App\Libs\ZnCore;
 use ZnCore\ConfigManager\Interfaces\ConfigManagerInterface;
 use ZnCore\Container\Interfaces\ContainerConfiguratorInterface;
 use ZnCore\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
 use ZnLib\Console\Domain\Libs\BundleLoaders\ConsoleLoader;
-use ZnLib\Console\Symfony4\Helpers\CommandHelper;
-use ZnLib\Rpc\Domain\Subscribers\ApplicationAuthenticationSubscriber;
-use ZnCore\App\Base\BaseApp;
-use ZnCore\App\Libs\ZnCore;
 use ZnLib\Console\Domain\Subscribers\ConsoleDetectTestEnvSubscriber;
+use ZnLib\Console\Symfony4\Helpers\CommandHelper;
 
 abstract class BaseConsoleApp extends BaseApp
 {
