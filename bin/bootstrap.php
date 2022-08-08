@@ -5,7 +5,6 @@ use ZnCore\App\Interfaces\AppInterface;
 use ZnCore\Container\Interfaces\ContainerConfiguratorInterface;
 use ZnCore\DotEnv\Domain\Libs\DotEnvLoader;
 use ZnCore\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
-use ZnCore\FileSystem\Helpers\FilePathHelper;
 use ZnLib\Console\Domain\Libs\ConsoleApp;
 
 return function (ContainerInterface $container) {
@@ -16,10 +15,8 @@ return function (ContainerInterface $container) {
     /** @var EventDispatcherConfiguratorInterface $eventDispatcherConfigurator */
     $eventDispatcherConfigurator = $container->get(EventDispatcherConfiguratorInterface::class);
 
-    //$mainEnv = DotEnv::loadFromFile(DotEnv::ROOT_PATH . '/.env');
-
     $loader = new DotEnvLoader();
-    $mainEnv = $loader->loadFromFile(FilePathHelper::rootPath() . '/.env');
+    $mainEnv = $loader->loadFromFile(__DIR__ . '/../../../../.env');
     $consoleAppClass = $mainEnv['CONSOLE_APP_CLASS'] ?? ConsoleApp::class;
     $containerConfigurator->singleton(AppInterface::class, $consoleAppClass);
 

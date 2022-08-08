@@ -11,7 +11,7 @@ abstract class BaseShellNew
     protected $lang = 'en_GB';
     protected $path = null;
 
-    protected function runCommand($command, ?string $path = null): string
+    public function runCommand($command, ?string $path = null): string
     {
         $path = $path OR $this->path;
         $commandString = CommandLineHelper::argsToString($command, $this->lang);

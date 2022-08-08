@@ -1,12 +1,41 @@
 #!/usr/bin/env php
 <?php
 
-require __DIR__ . '/../../../autoload.php';
+use ZnCore\Container\Libs\Container;
+use Symfony\Component\Console\Application;
+use ZnCore\App\Interfaces\AppInterface;
+use ZnCore\App\Libs\ZnCore;
+use ZnCore\Container\Interfaces\ContainerConfiguratorInterface;
+use ZnCore\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
+use ZnLib\Init\Helpers\InitHelper;
 
-require __DIR__ . '/console.php';
+define('MICRO_TIME', microtime(true));
 
-/*if ($argv[1] == 'init-----------------') {
-    require __DIR__ . '/../../init/bin/init.php';
+require __DIR__ . '/../../../../vendor/autoload.php';
+
+$container = new Container();
+$znCore = new ZnCore($container);
+$znCore->init();
+
+/** @var ContainerConfiguratorInterface $containerConfigurator */
+$containerConfigurator = $container->get(ContainerConfiguratorInterface::class);
+
+/** @var EventDispatcherConfiguratorInterface $eventDispatcherConfigurator */
+$eventDispatcherConfigurator = $container->get(EventDispatcherConfiguratorInterface::class);
+
+//$isInit = preg_match('/^init:/', $argv[1]);
+$isInit = class_exists(InitHelper::class) && InitHelper::isInitCommand($argv[1]);
+if ($isInit) {
+    $bootstrap = require __DIR__ . '/../../init/bin/bootstrap.php';
 } else {
-    require __DIR__ . '/console.php';
-}*/
+    $bootstrap = require __DIR__ . '/bootstrap.php';
+}
+call_user_func($bootstrap, $container);
+
+/** @var AppInterface $appFactory */
+$appFactory = $container->get(AppInterface::class);
+$appFactory->init();
+
+/** @var Application $application */
+$application = $container->get(Application::class);
+$application->run();
