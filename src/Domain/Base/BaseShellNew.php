@@ -3,6 +3,7 @@
 namespace ZnLib\Console\Domain\Base;
 
 use Symfony\Component\Process\Process;
+use ZnLib\Components\Time\Enums\TimeEnum;
 use ZnLib\Console\Domain\Helpers\CommandLineHelper;
 use ZnSandbox\Sandbox\Deployer\Domain\Libs\VarProcessor;
 
@@ -57,8 +58,10 @@ abstract class BaseShellNew
         $commandString = VarProcessor::process($commandString);
 
         $process = Process::fromShellCommandline($commandString, $path);
+        $process->setTimeout(TimeEnum::SECOND_PER_YEAR);
         $process->run();
         if (!$process->isSuccessful()) {
+//            dd($process->getOutput());
             throw new \Exception($process->getErrorOutput());
         }
         $commandOutput = $process->getOutput();

@@ -86,6 +86,20 @@ class FileSystemShell extends BaseShellNew2
     }
 
 
+    public function checkFileHash(string $filePath, string $hash, string $algo = 'sha384')
+    {
+        $output = $this->runCommand("{{bin/php}} -r \"if (hash_file('$algo', '$filePath') === '$hash') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('$filePath'); }\"");
+        $this->isValidFileHash($filePath, $hash, $algo);
+        if ($output != 'Installer verified') {
+            throw new \Exception('File hash not verified!');
+        }
+    }
+
+    public function isValidFileHash(string $filePath, string $hash, string $algo = 'sha384'): bool
+    {
+        $output = $this->runCommand("{{bin/php}} -r \"if (hash_file('$algo', '$filePath') === '$hash') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('$filePath'); } echo PHP_EOL;\"");
+        return $output != 'Installer verified';
+    }
 
 
     public function makeLink(string $filePath, string $linkPath, string $options = '-nfs'): bool

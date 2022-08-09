@@ -61,6 +61,7 @@ class PackageShell extends BaseShellNew2
 
     protected function find(string $package)
     {
+
         try {
             $result = $this->runCommand("dpkg-query --list | grep -i $package");
         } catch (\Throwable $e) {
