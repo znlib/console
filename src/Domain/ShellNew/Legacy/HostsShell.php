@@ -3,6 +3,7 @@
 namespace ZnLib\Console\Domain\ShellNew\Legacy;
 
 use ZnLib\Console\Domain\ShellNew\BaseShellNew2;
+use ZnLib\Console\Domain\ShellNew\FileSystemShell;
 
 class HostsShell extends BaseShellNew2
 {
@@ -37,7 +38,8 @@ class HostsShell extends BaseShellNew2
     }
 
     public function loadConfig() {
-        $content = $this->fsClass()::downloadContent('/etc/hosts');
+        $fs = new FileSystemShell($this->shell);
+        $content = $fs->downloadContent('/etc/hosts');
 
 //        dd($content);
 
@@ -84,7 +86,8 @@ class HostsShell extends BaseShellNew2
             $groupCode = trim($groupCode);
             $code .= "\n\n# <$groupName>\n\n$groupCode\n\n# </$groupName>\n\n";
         }
-        $this->fsClass()::uploadContent($code, '~/tmp/hosts');
+        $fs = new FileSystemShell($this->shell);
+        $fs->uploadContent($code, '~/tmp/hosts');
         $this->runCommand('sudo mv -f ~/tmp/hosts /etc/hosts');
     }
 }

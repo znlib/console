@@ -5,6 +5,7 @@ namespace ZnLib\Console\Domain\ShellNew\Legacy;
 use Deployer\ServerApache;
 use ZnCore\Text\Helpers\TemplateHelper;
 use ZnLib\Console\Domain\ShellNew\BaseShellNew2;
+use ZnLib\Console\Domain\ShellNew\FileSystemShell;
 use ZnTool\Deployer\Entities\ApacheStatusEntity;
 use function Deployer\get;
 
@@ -59,7 +60,8 @@ class ApacheShell extends BaseShellNew2
     public function removeConf(string $domain)
     {
         $file = $domain . '.conf';
-        $this->fsClass()::removeFile('/etc/apache2/sites-available/' . $file);
+        $fs = new FileSystemShell($this->shell);
+        $fs->removeFile('/etc/apache2/sites-available/' . $file);
     }
 
     public function addConf(string $domain, string $directory)
@@ -76,6 +78,8 @@ class ApacheShell extends BaseShellNew2
         ], '{{', '}}');
         $file = $domain . '.conf';
         //$fs = $this->fsClassName();
-        $this->fsClass()::uploadContentIfNotExist($code, '/etc/apache2/sites-available/' . $file);
+
+        $fs = new FileSystemShell($this->shell);
+        $fs->uploadContentIfNotExist($code, '/etc/apache2/sites-available/' . $file);
     }
 }
