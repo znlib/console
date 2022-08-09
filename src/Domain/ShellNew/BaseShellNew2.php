@@ -3,8 +3,6 @@
 namespace ZnLib\Console\Domain\ShellNew;
 
 use ZnLib\Console\Domain\Base\BaseShellNew;
-use ZnLib\Console\Domain\Helpers\CommandLineHelper;
-use function Deployer\get;
 
 class BaseShellNew2
 {
@@ -22,59 +20,63 @@ class BaseShellNew2
         return $this->shell->isSudo();
     }
 
+    public function sudo($sudo = true) {
+        $this->sudo = $sudo;
+    }*/
+
     public function setSudo(bool $sudo): void
     {
         $this->shell->setSudo($sudo);
     }
 
-    public function sudo($sudo = true) {
+    public function sudo($sudo = true): self
+    {
         $this->sudo = $sudo;
-    }*/
+        $clone = clone $this;
+        $clone->setSudo($sudo);
+        return $clone;
+    }
 
-    public function runCommand($command, ?string $path = null): string
+    protected function prepareSudo(string $command): string
     {
         $sudoCmdTpl = static::getSudoCommandTemplate();
         $commands = explode('&&', $command);
         foreach ($commands as &$commandItem) {
             $commandItem = trim($commandItem);
-            if($this->isSudo($commandItem)) {
+            if ($this->isSudo($commandItem) || $this->sudo) {
                 $commandItem = $this->stripSudo($commandItem);
                 $commandItem = str_replace('{command}', $commandItem, $sudoCmdTpl);
             }
-            //dump($commandItem);
         }
         $command = implode(' && ', $commands);
-        //dump();
-
-
-        return $this->shell->runCommand($command, $path);
+        return $command;
     }
 
-    protected static $sudoCommandName = 'sudo';
-
-    protected function runSudo(string $command, $options = [])
+    public function runCommand($command, ?string $path = null): string
     {
-        $sudoCmdTpl = static::getSudoCommandTemplate();
-        if ($sudoCmdTpl) {
-            $command = str_replace('{command}', $command, $sudoCmdTpl);
-        }
-        return static::_run($command, $options);
+        $command = $this->prepareSudo($command);
+        return $this->shell->runCommand($command, $path);
     }
 
     protected static function getSudoCommandTemplate()
     {
-        return 'sudo -S {command} < ~/sudo-pass';
+        $config = include($_ENV['DEPLOYER_CONFIG_FILE']);
+        return $config['connections']['default']['sudo']['commandTemplate'] ?? 'sudo {command}';
+//        return 'sudo -S {command} < ~/sudo-pass';
     }
 
     protected static function getSudoCommandName(): string
     {
-        return static::$sudoCommandName . ' ';
+        $config = include($_ENV['DEPLOYER_CONFIG_FILE']);
+        return ($config['connections']['default']['sudo']['command'] ?? 'sudo') . ' ';
     }
 
     protected function stripSudo(string $command): string
     {
         $command = trim($command);
-        $command = substr($command, strlen(static::getSudoCommandName()));
+        $command = preg_replace('/^('.static::getSudoCommandName().'\s+)/i', '', $command);
+//        dd($command);
+//        $command = substr($command, strlen(static::getSudoCommandName()));
         return $command;
     }
 
@@ -83,7 +85,6 @@ class BaseShellNew2
         $command = trim($command);
         return strpos($command, static::getSudoCommandName()) === 0;
     }
-
 
 
     /*public function test($command, ?string $path = null): string

@@ -4,6 +4,7 @@ namespace ZnLib\Console\Domain\Base;
 
 use Symfony\Component\Process\Process;
 use ZnLib\Console\Domain\Helpers\CommandLineHelper;
+use ZnSandbox\Sandbox\Deployer\Domain\Libs\VarProcessor;
 
 abstract class BaseShellNew
 {
@@ -53,6 +54,8 @@ abstract class BaseShellNew
 
     public function runCommandRaw(string $commandString, ?string $path = null): string
     {
+        $commandString = VarProcessor::process($commandString);
+
         $process = Process::fromShellCommandline($commandString, $path);
         $process->run();
         if (!$process->isSuccessful()) {

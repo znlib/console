@@ -36,6 +36,11 @@ class IO
         return $helperSet->get('question');
     }
 
+    public function writeTitle($title)
+    {
+        $this->output->writeln(['', "<fg=white># $title</>", '']);
+    }
+
     public function askHiddenResponse($message)
     {
         /** @var QuestionHelper $helper */

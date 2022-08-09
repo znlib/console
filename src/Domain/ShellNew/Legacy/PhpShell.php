@@ -2,20 +2,23 @@
 
 namespace ZnLib\Console\Domain\ShellNew\Legacy;
 
-use Deployer\PhpConfig;
-use Deployer\ServerFs;
 use ZnLib\Console\Domain\ShellNew\BaseShellNew2;
+use ZnLib\Console\Domain\ShellNew\FileSystemShell;
+use ZnTool\Deployer\Libs\PhpConfig2;
 
 class PhpShell extends BaseShellNew2
 {
 
     public function setConfig(string $configFile, array $config) {
-        $content = $this->fsClass()::downloadContent($configFile);
-        $phpConfig = new PhpConfig($content);
+
+        $fs = new FileSystemShell($this->shell);
+
+        $content = $fs->downloadContent($configFile);
+        $phpConfig = new PhpConfig2($content);
         foreach ($config as $key => $value) {
             $phpConfig->enable($key);
             $phpConfig->set($key, $value);
         }
-        $this->fsClass()::uploadContent($content, $configFile);
+        $fs->uploadContent($content, $configFile);
     }
 }

@@ -11,6 +11,14 @@ use function Deployer\get;
 class ApacheShell extends BaseShellNew2
 {
 
+    public function enableAutorun() {
+        $this->runCommand('sudo systemctl enable apache2');
+    }
+
+    public function enableRewrite() {
+        $this->runCommand('sudo a2enmod rewrite');
+    }
+
     public function restart()
     {
         $this->runCommand('sudo systemctl restart apache2');
