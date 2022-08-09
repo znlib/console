@@ -3,13 +3,19 @@
 namespace ZnLib\Console\Domain\ShellNew\Legacy;
 
 use Deployer\Git;
-use Deployer\ServerConsole;
 use ZnLib\Console\Domain\ShellNew\BaseShellNew2;
 
- class GitShell extends BaseShellNew2
+class GitShell extends BaseShellNew2
 {
 
-    public  function createTag(string $name)
+    private $directory;
+
+    public function setDirectory(string $directory): void
+    {
+        $this->directory = $directory;
+    }
+
+    public function createTag(string $name)
     {
         $command = "tag '$name'";
         return $this->runGit($command);
@@ -46,7 +52,7 @@ use ZnLib\Console\Domain\ShellNew\BaseShellNew2;
     public function push(string $branchName = null, string $target = 'origin')
     {
         $command = "push";
-        if($branchName) {
+        if ($branchName) {
             $command .= " $target '$branchName' ";
         }
         return $this->runGit($command);
@@ -101,10 +107,10 @@ use ZnLib\Console\Domain\ShellNew\BaseShellNew2;
         }
         return $config;
     }
-    
+
     protected function runGit($command)
     {
-        return $this->shell->runCommand("{{bin/git}} $command");
+        return $this->shell->runCommand("cd {$this->directory} && {{bin/git}} $command");
 //        return $this->consoleClass()::run("{{bin/git}} $command");
     }
 }
