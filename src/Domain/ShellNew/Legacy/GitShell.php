@@ -104,6 +104,7 @@ use ZnLib\Console\Domain\ShellNew\BaseShellNew2;
     
     protected function runGit($command)
     {
-        return $this->consoleClass()::run("{{bin/git}} $command");
+        return $this->shell->runCommand("{{bin/git}} $command");
+//        return $this->consoleClass()::run("{{bin/git}} $command");
     }
 }

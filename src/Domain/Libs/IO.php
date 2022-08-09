@@ -18,7 +18,7 @@ class IO
     public function __construct(InputInterface $input, OutputInterface $output)
     {
         $this->input = $input;
-        $this->output  = $output;
+        $this->output = $output;
     }
 
     public function getInput(): InputInterface
@@ -31,7 +31,8 @@ class IO
         return $this->output;
     }
 
-    public function getHelper(): HelperInterface {
+    public function getHelper(): HelperInterface
+    {
         $helperSet = InputHelper::helperSet();
         return $helperSet->get('question');
     }
@@ -39,6 +40,21 @@ class IO
     public function writeTitle($title)
     {
         $this->output->writeln(['', "<fg=white># $title</>", '']);
+    }
+
+    public function writeSubTitle($title)
+    {
+        $this->output->writeln(['', "<fg=white>- $title</>", '']);
+    }
+
+    public function writeln(...$args)
+    {
+        $this->output->writeln(...$args);
+    }
+
+    public function write(...$args)
+    {
+        $this->output->write(...$args);
     }
 
     public function askHiddenResponse($message)
