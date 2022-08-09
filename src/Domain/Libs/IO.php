@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use ZnLib\Console\Symfony4\Helpers\InputHelper;
+use ZnLib\Console\Symfony4\Question\ChoiceQuestion;
 
 class IO
 {
@@ -47,6 +48,16 @@ class IO
         $this->output->writeln(['', "<fg=white>- $title</>", '']);
     }
 
+    public function warning($title)
+    {
+        $this->output->writeln("<fg=yellow>$title</>");
+    }
+
+    public function success($title)
+    {
+        $this->output->writeln(['', "<fg=green>$title</>", '']);
+    }
+
     public function writeln(...$args)
     {
         $this->output->writeln(...$args);
@@ -69,9 +80,24 @@ class IO
 
     public function ask($message)
     {
+        $question = new Question($message);
+        return $this->helperAsk($question);
+
+//        /** @var QuestionHelper $helper */
+//        $helper = $this->getHelper('question');
+//        return $helper->ask($this->input, $this->output, $question);
+    }
+
+    protected function helperAsk(Question $question) {
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
-        $question = new Question($message);
         return $helper->ask($this->input, $this->output, $question);
+    }
+
+    public function choiceQuestion($message, $options)
+    {
+        $this->output->writeln('');
+        $question = new ChoiceQuestion($message, $options);
+        return $this->helperAsk($question);
     }
 }
