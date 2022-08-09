@@ -22,7 +22,8 @@ abstract class BaseShellNew
         $this->sudo = $sudo;
     }
 
-    public function sudo($sudo = true): self {
+    public function sudo($sudo = true): self
+    {
         $this->sudo = $sudo;
         $clone = clone $this;
         $clone->setSudo($sudo);
@@ -44,12 +45,14 @@ abstract class BaseShellNew
         return $this;
     }
 
-    public function run() {
+    public function run()
+    {
         $commandString = implode(' && ', $this->commands);
         return $this->runCommand($commandString);
     }
 
-    public function runCommandRaw(string $commandString, ?string $path = null): string {
+    public function runCommandRaw(string $commandString, ?string $path = null): string
+    {
         $process = Process::fromShellCommandline($commandString, $path);
         $process->run();
         if (!$process->isSuccessful()) {
@@ -66,9 +69,9 @@ abstract class BaseShellNew
         return $this->isTrueOut($out);
     }
 
-    public function isTrueOut($out): bool {
+    public function isTrueOut($out): bool
+    {
         $out = trim($out);
-//        dump($out);
         return $out === 'true';
     }
 }

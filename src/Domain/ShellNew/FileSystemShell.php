@@ -166,7 +166,7 @@ class FileSystemShell extends BaseShellNew2
         return trim($out) == 'true';
 //        dd();
         // "[ -f $file ]"
-        return $this->test("test -e $file && echo true || echo false");
+        return $this->shell->test("test -e $file && echo true || echo false");
     }
 
     public function filterItem(array $item): bool
