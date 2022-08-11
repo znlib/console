@@ -109,7 +109,7 @@ class FileSystemShell extends BaseShellNew2
 
     public function move(string $from, string $to, string $options = ''): bool
     {
-        return $this->runCommand("mv $options $from $to");
+        return $this->runCommand("mv $options \"$from\" \"$to\"");
     }
 
     public function chmodRecurse(string $path, string $options)
@@ -121,12 +121,12 @@ class FileSystemShell extends BaseShellNew2
     public function chmod(string $path, string $options, bool $isRecursive = false)
     {
         $recursive = $isRecursive ? '-R' : '';
-        $this->runCommand("chmod $recursive $options $path");
+        $this->runCommand("chmod $recursive $options \"$path\"");
     }
 
     public function chown(string $path, string $owner)
     {
-        $this->runCommand("chown $owner $path");
+        $this->runCommand("chown $owner \"$path\"");
     }
 
 
@@ -134,7 +134,7 @@ class FileSystemShell extends BaseShellNew2
 
     public function list(string $path): array
     {
-        $commandOutput = $this->runCommand("cd $path && ls -la", $path);
+        $commandOutput = $this->runCommand("cd \"$path\" && ls -la", $path);
         $parser = new ShellItemsParser([$this, 'parseLine'], [$this, 'filterItem']);
         $items = $parser->parse($commandOutput);
         return $items;
@@ -145,7 +145,7 @@ class FileSystemShell extends BaseShellNew2
         if (!$this->isFileExists($path)) {
             return false;
         }
-        $this->runCommand("rm $path");
+        $this->runCommand("rm \"$path\"");
     }
 
     public function removeDir(string $path)
@@ -153,12 +153,12 @@ class FileSystemShell extends BaseShellNew2
         if (!$this->isDirectoryExists($path)) {
             return false;
         }
-        $this->runCommand("rm -rf $path");
+        $this->runCommand("rm -rf \"$path\"");
     }
 
     public function makeDirectory(string $directory)
     {
-        $this->runCommand("mkdir -p $directory");
+        $this->runCommand("mkdir -p \"$directory\"");
     }
 
     public function touch(string $file)//: bool
@@ -168,7 +168,7 @@ class FileSystemShell extends BaseShellNew2
 
     public function isDirectoryExists(string $file): bool
     {
-        $out = $this->runCommand("test -d $file && echo true || echo false");
+        $out = $this->runCommand("test -d \"$file\" && echo true || echo false");
         return trim($out) == 'true';
 
 //        return $this->test("[ -d $file ]");
@@ -176,11 +176,11 @@ class FileSystemShell extends BaseShellNew2
 
     public function isFileExists(string $file): bool
     {
-        $out = $this->runCommand("test -e $file && echo true || echo false");
+        $out = $this->runCommand("test -e \"$file\" && echo true || echo false");
         return trim($out) == 'true';
 //        dd();
         // "[ -f $file ]"
-        return $this->shell->test("test -e $file && echo true || echo false");
+        return $this->shell->test("test -e \"$file\" && echo true || echo false");
     }
 
     public function filterItem(array $item): bool

@@ -55,7 +55,7 @@ abstract class BaseShellNew
 
     public function runCommandRaw(string $commandString, ?string $path = null): string
     {
-        $commandString = VarProcessor::process($commandString);
+        $commandString = $this->prepareCommandString($commandString);
 //        dump($commandString);
 
         $process = Process::fromShellCommandline($commandString, $path);
@@ -67,6 +67,12 @@ abstract class BaseShellNew
         }
         $commandOutput = $process->getOutput();
         return $commandOutput;
+    }
+
+    protected function prepareCommandString(string $commandString): string
+    {
+//        $commandString = VarProcessor::process($commandString);
+        return $commandString;
     }
 
     public function test($command, ?string $path = null): string
