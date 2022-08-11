@@ -56,6 +56,7 @@ abstract class BaseShellNew
     public function runCommandRaw(string $commandString, ?string $path = null): string
     {
         $commandString = VarProcessor::process($commandString);
+//        dump($commandString);
 
         $process = Process::fromShellCommandline($commandString, $path);
         $process->setTimeout(TimeEnum::SECOND_PER_YEAR);
