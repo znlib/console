@@ -2,10 +2,37 @@
 
 namespace ZnLib\Console\Domain\Helpers;
 
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+
 class CommandLineHelper
 {
 
     private static $optionGlue = '=';
+
+    /**
+     * @param Process | string | array $command
+     */
+    public static function run($command)
+    {
+        $process = self::createProcessInstance($command);
+        $process->run();
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+    }
+
+    private static function createProcessInstance($command): Process
+    {
+        if ($command instanceof Process) {
+            $process = $command;
+        } elseif (is_string($command) || is_array($command)) {
+            $process = Process::fromShellCommandline($command);
+        } else {
+            throw new \Exception('Bad command format!');
+        }
+        return $process;
+    }
 
     public static function argsToString($command, string $langCode = null): string
     {
@@ -75,5 +102,4 @@ class CommandLineHelper
         }
         return $cmdArr;
     }
-
 }

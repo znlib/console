@@ -87,7 +87,7 @@ class HostsShell extends BaseShellNew2
             $code .= "\n\n# <$groupName>\n\n$groupCode\n\n# </$groupName>\n\n";
         }
         $fs = new FileSystemShell($this->shell);
-        $fs->uploadContent($code, '~/tmp/hosts');
-        $this->runCommand('sudo mv -f ~/tmp/hosts /etc/hosts');
+        $fs->uploadContent($code, '{{homeUserDir}}/tmp/hosts');
+        $this->runCommand('sudo mv -f {{homeUserDir}}/tmp/hosts /etc/hosts');
     }
 }

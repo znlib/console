@@ -21,7 +21,6 @@ class VirtualBoxShell extends BaseShellNew2
         } catch (\Throwable $e) {
             
         }
-        
     }
 
     public function startUp(string $vmName)

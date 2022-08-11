@@ -2,6 +2,7 @@
 
 namespace ZnLib\Console\Domain\Base;
 
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use ZnLib\Components\Time\Enums\TimeEnum;
 use ZnLib\Console\Domain\Helpers\CommandLineHelper;
@@ -60,11 +61,14 @@ abstract class BaseShellNew
 
         $process = Process::fromShellCommandline($commandString, $path);
         $process->setTimeout(TimeEnum::SECOND_PER_YEAR);
-        $process->run();
+
+        /*$process->run();
         if (!$process->isSuccessful()) {
-//            dd($process->getOutput());
-            throw new \Exception($process->getErrorOutput());
-        }
+            throw new ProcessFailedException($process);
+        }*/
+
+        CommandLineHelper::run($process);
+
         $commandOutput = $process->getOutput();
         return $commandOutput;
     }
