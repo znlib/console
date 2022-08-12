@@ -2,11 +2,9 @@
 
 namespace ZnLib\Console\Domain\Base;
 
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use ZnLib\Components\Time\Enums\TimeEnum;
 use ZnLib\Console\Domain\Helpers\CommandLineHelper;
-use ZnSandbox\Sandbox\Deployer\Domain\Libs\VarProcessor;
 
 abstract class BaseShellNew
 {
