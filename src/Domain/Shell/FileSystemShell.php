@@ -5,9 +5,18 @@ namespace ZnLib\Console\Domain\Shell;
 use ZnLib\Console\Domain\Base\BaseShellNew;
 use ZnLib\Console\Domain\Libs\ShellParsers\ShellItemsParser;
 
+/**
+ * @deprecated
+ */
 class FileSystemShell extends BaseShellNew
 {
 
+    /**
+     * @param string $path
+     * @return array
+     * @deprecated
+     * @see \ZnSandbox\Sandbox\Deployer\Domain\Repositories\Shell\FileSystemShell::list()
+     */
     public function directoryFiles(string $path): array
     {
         $commandOutput = $this->runCommand(['ls', '-la'], $path);
@@ -16,7 +25,7 @@ class FileSystemShell extends BaseShellNew
         return $items;
     }
 
-    public function filterItem(array $item): bool
+    /*public function filterItem(array $item): bool
     {
         return !in_array($item['fileName'], ['.', '..']);
     }
@@ -45,5 +54,5 @@ class FileSystemShell extends BaseShellNew
             return $item;
         }
         return null;
-    }
+    }*/
 }
