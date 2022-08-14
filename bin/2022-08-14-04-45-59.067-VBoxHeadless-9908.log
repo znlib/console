@@ -1,0 +1,12 @@
+Log created: 2022-08-14T04:45:59.678714000Z
+Process ID:  9908 (0x26b4)
+Parent PID:  1 (0x1)
+Executable:  /usr/lib/virtualbox/VBoxHeadless
+Arg[0]: /usr/lib/virtualbox/VBoxHeadless
+Arg[1]: --comment
+Arg[2]: Server
+Arg[3]: --startvm
+Arg[4]: 6b96b103-1477-4f08-b4d9-ccf8a7d96326
+Arg[5]: --vrde
+Arg[6]: config
+AddRef: illegal refcnt=3221225469 state=2
