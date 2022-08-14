@@ -6,7 +6,6 @@ use ZnCore\Container\Interfaces\ContainerConfiguratorInterface;
 use ZnCore\DotEnv\Domain\Libs\DotEnvLoader;
 use ZnCore\EventDispatcher\Interfaces\EventDispatcherConfiguratorInterface;
 use ZnLib\Console\Domain\Libs\ConsoleApp;
-use ZnTool\Dev\VarDumper\Subscribers\SymfonyDumperSubscriber;
 
 return function (ContainerInterface $container) {
 
@@ -23,12 +22,6 @@ return function (ContainerInterface $container) {
 
     /** @var AppInterface $appFactory */
     $appFactory = $container->get(AppInterface::class);
-
-
-    if(class_exists(SymfonyDumperSubscriber::class)) {
-        /** Подключаем дампер */
-        $eventDispatcherConfigurator->addSubscriber(SymfonyDumperSubscriber::class);
-    }
 
     $appFactory->addBundles([
         \ZnTool\Package\Bundle::class,
