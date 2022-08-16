@@ -94,10 +94,18 @@ class IO
         return $helper->ask($this->input, $this->output, $question);
     }
 
-    public function choiceQuestion($message, $options)
+    public function choiceQuestion($message, $choices)
     {
         $this->output->writeln('');
-        $question = new ChoiceQuestion($message, $options);
+        $question = new ChoiceQuestion($message, $choices);
+        return $this->helperAsk($question);
+    }
+
+    public function multiChoiceQuestion($message, $choices)
+    {
+        $this->output->writeln('');
+        $question = new ChoiceQuestion($message, $choices);
+        $question->setMultiselect(true);
         return $this->helperAsk($question);
     }
 }

@@ -7,7 +7,6 @@ class ChoiceQuestion extends \Symfony\Component\Console\Question\ChoiceQuestion
 
     public function __construct(string $question, array $choices, $default = null)
     {
-
         parent::__construct($question, $choices, $default);
         $this->setNormalizer(function ($value) {
             if ($value == 'a') {
