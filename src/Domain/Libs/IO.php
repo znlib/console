@@ -7,6 +7,7 @@ use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnLib\Console\Symfony4\Helpers\InputHelper;
 use ZnLib\Console\Symfony4\Question\ChoiceQuestion;
 
@@ -96,16 +97,35 @@ class IO
 
     public function choiceQuestion($message, $choices)
     {
-        $this->output->writeln('');
-        $question = new ChoiceQuestion($message, $choices);
-        return $this->helperAsk($question);
+        $this->writeln('');
+        $question = new ChoiceQuestion($message, array_values($choices));
+        $selected = $this->helperAsk($question);
+        return $this->prepareSelected([$selected], $choices);
     }
 
     public function multiChoiceQuestion($message, $choices)
     {
-        $this->output->writeln('');
-        $question = new ChoiceQuestion($message, $choices);
+        $this->writeln('');
+        $question = new ChoiceQuestion($message, array_values($choices));
         $question->setMultiselect(true);
-        return $this->helperAsk($question);
+        $selected = $this->helperAsk($question);
+        return $this->prepareSelected($selected, $choices);
+    }
+
+    protected function prepareSelected($selected, $choices)
+    {
+        if(ArrayHelper::isIndexed($choices)) {
+            return $selected;
+        }
+        
+        $keyList = array_keys($choices);
+        $titleList = array_values($choices);
+        $new = [];
+        foreach ($titleList as $index => $title) {
+            if(in_array($title, $selected)) {
+                $new[] = $keyList[$index];
+            }
+        }
+        return $new;
     }
 }
