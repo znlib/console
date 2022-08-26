@@ -49,9 +49,19 @@ class IO
         $this->output->writeln(['', "<fg=white>- $title</>", '']);
     }
 
+    public function writelnListItem($title)
+    {
+        $this->output->writeln(["<fg=white>- $title</>"]);
+    }
+
     public function warning($title)
     {
         $this->output->writeln("<fg=yellow>$title</>");
+    }
+
+    public function error($title)
+    {
+        $this->output->writeln("<fg=red>$title</>");
     }
 
     public function success($title)
