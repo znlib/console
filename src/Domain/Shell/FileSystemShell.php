@@ -15,7 +15,7 @@ class FileSystemShell extends BaseShellNew
      * @param string $path
      * @return array
      * @deprecated
-     * @see \ZnSandbox\Sandbox\Deployer\Domain\Repositories\Shell\FileSystemShell::list()
+     * @see \ZnLib\Components\ShellRobot\Domain\Repositories\Shell\FileSystemShell::list()
      */
     public function directoryFiles(string $path): array
     {
