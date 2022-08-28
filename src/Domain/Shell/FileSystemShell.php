@@ -25,7 +25,7 @@ class FileSystemShell extends BaseShellNew
         return $items;
     }
 
-    /*public function filterItem(array $item): bool
+    public function filterItem(array $item): bool
     {
         return !in_array($item['fileName'], ['.', '..']);
     }
@@ -54,5 +54,5 @@ class FileSystemShell extends BaseShellNew
             return $item;
         }
         return null;
-    }*/
+    }
 }
